@@ -1,0 +1,322 @@
+#!/usr/bin/perl -w
+use strict; 
+
+##------------------------------------------------------------------------------
+#This software generate the absolute quantification of metagenome and metatranscriptome
+#Author Jiang Xiao-Tao: 
+#Date 2017-07-22 Merge Version 1
+#Email biofuture.jiang@gmail.com
+#-------------------------------------------------------------------------------
+
+##This program directly process the high quality metagenome and metatranscriptome reads after quality control for easy use
+
+#use these Perl package
+use Getopt::Std;
+use File::Basename;
+use FindBin qw($Bin);
+
+our (@dirset,$aqmmdir);
+BEGIN {
+    @dirset = split(/\//,$Bin);
+    $aqmmdir = join("/", @dirset);
+    unshift @INC, "$aqmmdir/bin";
+}
+
+our ($opt_h, $opt_a, $opt_b, $opt_n, $opt_m, $opt_o) = "";
+getopts('a:b:m:n:o:h');
+
+my $usage =<<USG;
+	perl $0 -a <Input_metagenome_dir> -b <Input_metatranscriptome_dir> -m <Experimental_meta_data> -n <num_threads> -o <ouput_dir>
+	Author Jiang Xiao-Tao
+	Email  biofuture.jiang\@gmail.com
+USG
+
+if($opt_h || ! $opt_a){
+	die "$usage\n";
+}
+
+#-------------------------------------------------------------------
+#In this software, we use AroC to obtain the cell numbers of a sequenced
+#metagenome, the assumption is that 1 ml sample used for extract DNA
+#and RNA have the same number of cells; hence the per ml cell numbers
+#could be used in the RNA sample to perform absolute quantification 
+#of the metatranscriptome
+#-------------------------------------------------------------------
+#timer and log file 
+#-------------------------------------------------------------------
+my $dat = localtime; ## record the local time and sent to the variable $dat
+$opt_o ||= ".";
+my $odir = $opt_o;
+unless(-d "$odir"){ `mkdir $odir`;}
+my $logfile = "$odir/log.txt";
+die "$!\n" unless open(LOG, ">$logfile");
+
+##
+my $molindex = 6.022 * 100000000000000000000000;
+
+#hash variables used 
+my %sname; #record all the samples name used
+my %dnaweight; ##record all extracted DNA weight
+my %dnavolume; ##record all the volume/weight used to extract DNA
+my %dnaeff; ##record the DNA extraction efficiency, i.e. the ratio of DNA extracted
+my %rnaweight; 
+my %rnavolume;
+my %rnaeff;
+my %mrnaratio; ##record the ratio of mRNA in the total extracted RNA 
+
+my %dnalibcells; ##store all the generated cell numbers by AroC
+my %dnadepthlib; ##the library size of each DNA sample
+my %dnacomp; #Each sample the ratio of a t c and g  #hash->hash  #two level hash
+
+my %perunitcells;  ##store the per ml/gram cell numbers for each sample; this is result
+
+print LOG "0. AQMM begain: $dat\n";
+print "0. AQMM begain: $dat\n";
+$dat = localtime;
+print LOG "1. Parse the experimental meta data\t", $dat,"\n";
+print "1. Parse the experimental meta data\t", $dat,"\n";
+##parse the experimental meta data
+die "$!\n" unless open(META, "$opt_m"); ##parse the meta data file
+<META>;
+while(<META>){
+	chomp;
+	my @tem = split /\t/;
+	#print "$tem[0]\n$tem[1]\n$tem[2]\n$tem[3]\n$tem[4]\n$tem[5]\n$tem[6]\n$tem[7]\n$tem[8]\n";
+	$sname{$tem[1]} = $tem[0];
+	$dnaweight{$tem[1]} = $tem[2];
+	$dnavolume{$tem[1]} = $tem[3];
+	$dnaeff{$tem[1]} = $tem[4];
+	$rnaweight{$tem[1]} = $tem[5];
+	$rnavolume{$tem[1]} = $tem[6];
+	$rnaeff{$tem[1]} = $tem[7];
+	$mrnaratio{$tem[1]} = $tem[8];
+}
+close META;
+
+##use AroC to get the cell numbers for each DNA sample
+$dat = localtime;
+print LOG "2. AroC and atcg state for DNA data begin, this step is slow, be patient\t",$dat,"\n";
+print  "2. AroC to get the cell number and atcg state for DNA data begin, this step is slow, be patient\t",$dat,"\n";
+
+unless (-d "$odir/temp"){ `mkdir $odir/temp`; } ##generate a temp dir to store AroC result
+for my $sn (sort {$sname{$b} <=> $sname{$a}} keys %sname){  ##sort with SID
+	##for each sample, run the AroC  
+	my $fq1 = "$opt_a/$sn\_dna_1.fq";
+	my $fq2 = "$opt_a/$sn\_dna_2.fq";
+	
+	die "Wrong sample name format $sn $fq1 $fq2\n" unless (-e $fq1 && -e $fq2);
+	my $tempout = "$odir/temp/$sn.temp.aroc.txt";
+	
+	## RUNNING the AROC ONE By ONE
+	#`perl $aqmmdir/AroCv1.0/AROC.pl  -1 $fq1 -2 $fq2 -m m -o $tempout -n $opt_n -f fq`;
+	map2scpMGs($fq1, $fq2, $tempout, $opt_n);
+	#extract the cells number
+	my $num  = `tail -2 $tempout | head -1 | cut -f 2`;
+	chomp($num);
+	$dnalibcells{$sn} = $num; ##store the dna sample cells  
+	
+	##calculate the lib size and a t c g ratio 
+	my ($libsize, $ar, $tr, $cr, $gr) = atcg_state($fq1, $fq2); #
+	#print "$libsize\t$ar\t$tr\t$cr\t$gr";
+	$dnadepthlib{$sn} = $libsize;  # store the dna library size  for each sample 
+	$dnacomp{$sn}{"A"} = $ar;
+	$dnacomp{$sn}{"T"} = $tr;
+	$dnacomp{$sn}{"C"} = $cr;
+	$dnacomp{$sn}{"G"} = $gr;
+
+}##process each DNA samples 
+
+##remove all the AroC results
+#`rm -rf $odir/temp`;
+##
+$dat = localtime;
+print LOG "\tAroC finished, DNA cell numbers have been estimated\t", $dat , "\n";
+print  "\tAroC finished, DNA cell numbers have been estimated\t", $dat , "\n";
+
+##output the first result of per volume cell numbers 
+my $dnaoutcell = "$odir/dna_cell_info.txt";
+die "DNA output$!\n" unless open(DNAOUT, ">$dnaoutcell");
+print DNAOUT "SID\tSNAME\tlibrary_size\tlib_cell\tcell_per_ml\tA_ratio\tT_ratio\tC_ratio\tG_ratio\n";
+my $sid = 1;
+for my $sn (sort {$sname{$b} <=> $sname{$a}} keys %sname){
+	
+	my $dnatotalweight = $dnaweight{$sn} / $dnaeff{$sn}; ## for FAST DNAKit  the efficiency is about 28.2%
+	my $seqtotalweight = ( ($dnacomp{$sn}{"A"} *  313.2 + $dnacomp{$sn}{"T"} * 304.2 + $dnacomp{$sn}{"C"} * 289.18 + $dnacomp{$sn}{"G"} * 329.21) * $dnadepthlib{$sn}) / $molindex;
+	my $seqratio = $seqtotalweight / $dnatotalweight; ## this is the ratio of DNA sequenced 
+        my $celperml = $dnalibcells{$sn} / $seqratio;  ## the total number of cells per ml sample 
+	print DNAOUT "$sid\t$sn\t$dnadepthlib{$sn}\t$dnalibcells{$sn}\t$celperml\t",$dnacomp{$sn}{"A"},"\t",$dnacomp{$sn}{"T"}, "\t",$dnacomp{$sn}{"C"}, "\t", $dnacomp{$sn}{"G"},"\n";
+
+	##store per ml cells for RNA data 
+	$perunitcells{$sn} = $celperml;
+	$sid++;
+}
+close DNAOUT;
+
+print LOG "3. DNA Cell Estimation have been finished\n";
+print "3. DNA Cell Estimation have been finished\n";
+
+##Start to statistic the RNA a t c g information
+$dat = localtime;
+print LOG "4. START to process RNA libraries to get the lib size and ATCG ratio\t", $dat , "\n";
+print  "4. START to process RNA libraries to get the lib size and ATCG ratio\t", $dat , "\n";
+my $rnaoutcell = "$odir/rna_cell_info.txt";
+die "RNA output$!\n" unless open(RNAOUT, ">$rnaoutcell");
+print RNAOUT "SID\tSNAME\tlibrary_size\tcell_per_ml_FromDNA\tSequenced_Cells\tA_ratio\tT_ratio\tC_ratio\tG_ratio\n";
+$sid = 1;
+for my $sn (sort {$sname{$b} <=> $sname{$a}} keys %sname){
+	my $fq1 = "$opt_b/$sn\_rna_1.fq";  ##RNA fq1
+	my $fq2 = "$opt_b/$sn\_rna_2.fq";  ##RNA fq2
+	
+	die "Wrong sample name format $sn $fq1 $fq2\n" unless (-e $fq1 && -e $fq2);
+	my ($libsize, $ar, $tr, $cr, $gr) = atcg_state($fq1, $fq2); #
+	
+	my $seqweight = ($ar *  329.2 + $tr * 306.2 + $cr * 305.2 + $gr * 345.2) * $libsize / $molindex;
+	$seqweight = 1000000000 * $seqweight;
+	
+	my $rnaperml =  ($rnaweight{$sn} * $mrnaratio{$sn} ) / ($rnaeff{$sn} * $rnavolume{$sn});
+	my $seqratio = $seqweight / $rnaperml;
+
+        my $seqcell = $seqratio * $perunitcells{$sn};
+	
+	print RNAOUT "$sid\t$sn\t$libsize\t$perunitcells{$sn}\t$seqcell\t$ar\t$tr\t$cr\t$gr\n";
+	
+	$sid ++;
+}
+close RNAOUT;
+
+$dat = localtime;
+print LOG "5. Finished!", $dat, "\n";
+print  "5. Finished!", $dat, "\n";
+
+
+#--------------------------------------------------------------------
+#sub function in this pipeline 
+#--------------------------------------------------------------------
+sub atcg_state{
+	##----------------------------------------------------------
+	#The function generate the library size, A, T, C, G ratio of 
+	#a seqeuenced metagenome or metatranscriptome
+	##----------------------------------------------------------
+	my ($f1, $f2) = @_;
+	my ($a, $t, $c, $g, $total) = (0,0,0,0,0);
+
+	die "$f1\t$!\n" unless open(A, "$f1");
+	while(<A>){
+		my $seq = <A>;
+		<A>;<A>;
+		chomp($seq);
+		my $a1 =  ($seq =~ tr/[Aa]//);
+		$a += $a1;
+		my $t1 =  ($seq =~ tr/[Tt]//);
+		$t += $t1;
+		my $c1 =  ($seq =~ tr/[Cc]//);
+		$c += $c1;
+		my $g1 =  ($seq =~ tr/[Gg]//);
+		$g += $g1;
+
+		$total += length($seq);
+	}
+	close A;
+
+	die "$f2\t$!\n" unless open(B, "$f2");
+	while(<B>){
+
+		my $seq = <B>;
+		<B>;<B>;
+		chomp($seq);
+		my $a1 = ($seq =~ tr/[Aa]//);
+		$a += $a1;
+		my $t1 = ($seq =~ tr/[Tt]//);
+		$t += $t1;
+		my $c1 = ($seq =~ tr/[Cc]//);
+		$c += $c1;
+		my $g1 = ($seq =~ tr/[Gg]//);
+		$g += $g1;
+
+		$total += length($seq);
+	}
+	close B;
+
+	$a = $a/$total;
+	$t = $t/$total;
+	$c = $c/$total;
+	$g = $g/$total;
+
+	return ($total,$a,$t,$c,$g);
+	
+}#atcg_state
+
+##This program calculate the cell numbers for metagenomic data by essential single-copy marker gene
+sub map2scpMGs{
+
+        my @tem = @_;
+	my $dbindex = "$aqmmdir/db/KO30_DIAMOND.dmnd";
+	my $cogslis = "$aqmmdir/db/all_KO30_name.list";
+	my $eval = 3;
+	my $iden = 45;
+        my $tab = "tab.dimand.out";
+
+	my $temp1 = "temp.1";
+	my $temp2 = "temp.2";
+	`$aqmmdir/bin/diamond blastx -q $tem[0] -d $dbindex -o $temp1 -f tab --max-hits 1 -p $tem[3]  --max-target-seqs 1 -e $eval --id $iden`;
+	`$aqmmdir/bin/diamond blastx -q $tem[1] -d $dbindex -o $temp2 -f tab --max-hits 1 -p $tem[3]  --max-target-seqs 1 -e $eval --id $iden`;
+	`cat $temp1 $temp2 > $tab`;
+	
+       ##get the coverage of each KO
+        my %seq2OGs = ();
+        my %seqlen = ();
+        die "$!\n" unless open(OGMAP, "$cogslis");
+        while(<OGMAP>){
+                chomp;
+                my @tem = split(/\t/, $_);
+                $seq2OGs{$tem[0]} = $tem[1];
+                $seqlen{$tem[0]} = $tem[2];
+        }
+        close OGMAP;
+
+        die "$!\n" unless open(TAB, "$tab");
+        my %koscov;
+        while(<TAB>){
+                chomp;
+                my @tem = split(/\t/, $_);
+                if(exists $seq2OGs{$tem[1]}){
+                        $koscov{$tem[1]} += $tem[3];
+                }else{
+                        $koscov{$tem[1]} = $tem[3];
+                }
+        }
+        close TAB;
+	`rm -rf $tab; rm -rf $temp1; rm -rf $temp2`;
+        die "$!\n" unless open(TOUT, ">$tem[2]");
+	my %ogAb;
+        my %ognum;
+        for my $koseq (keys %koscov){
+                my $ave = $koscov{$koseq} / $seqlen{$koseq};
+                #print OUTCOV "$koseq\t$ave\t$seqlen{$koseq}\n";
+		die "$!\n" unless (exists $seq2OGs{$koseq});
+
+		if(exists $ogAb{$seq2OGs{$koseq}}){
+			$ogAb{$seq2OGs{$koseq}} += $ave;
+			 $ognum{$seq2OGs{$koseq}} ++;
+		}else{
+			$ogAb{$seq2OGs{$koseq}} = $ave;
+			$ognum{$seq2OGs{$koseq}} = 1;
+		}
+        }
+
+	my $overallcov = 0;
+        my $totalOGs = 0;
+        for my $ogid (keys %ogAb){
+                my $avc = $ogAb{$ogid};
+                $overallcov += $avc;
+                $totalOGs ++;
+                print TOUT "$ogid\t$avc\t$ognum{$ogid}\n";
+        }
+
+        my $aveko = $overallcov / $totalOGs;
+        print TOUT "AverageKO_Estimated_CellNumber\t$aveko\n";
+        print TOUT "END\n";
+}#map2scpMGs
+
+1;
+__END__
