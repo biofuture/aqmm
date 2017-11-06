@@ -37,9 +37,12 @@ By typing ./aqmm -h the help information will show here .  
 
 where:    
 
-       -a <Input_metagenome_dir> including all the fq files of your metagenomic samples after quality filtering 
-       -b <Input_metatranscriptome_dir> including all the paralell metatranscriptomic fq files with metagenomic samples after . remvoing the rRNA with tools like SortMeRNA. 
+       -a <Input_metagenome_dir> including all the fq files of your metagenomic samples after quality filtering
+       
+       -b <Input_metatranscriptome_dir> including all the paralell metatranscriptomic fq files with metagenomic samples after . remvoing the rRNA with tools like SortMeRNA.
+       
        -m meta_data.txt including all the experimental extraction information and the extraction efficiency information of your sample type
+       
        -o <ouput_dir> will include all the output results for the quantification, including the esimated cell numbers of metagenomic data of each sample and the estimated sequenced cell numbers your metatranscriptomic data included. With the quantification results obtained, the abundance of gene/species could be futher normalized to per cell/volume/gram etc. al.   
 
 Example to run
@@ -48,21 +51,21 @@ There is a small demo to show how to use AQMM to generate absolute quantificatio
 
 Enter the example directory and run the following command 
 
-../dist/aqmm  -a AS_metagenome -b AS_metatranscriptome -m meta_data.txt -n 12 -o testout
+	../dist/aqmm  -a AS_metagenome -b AS_metatranscriptome -m meta_data.txt -n 12 -o testout
 
 After runnning, check the results 
 
 cat dna_cell_info.txt 
 
-SID	SNAME	library_size	lib_cell	cell_per_ml	A_ratio	T_ratio	C_ratio	G_ratio
-1	AS2	50000000	8.56742513314301	3.23275242169008e+19	0.22371768	0.22220922	0.27649788	0.27757522
-2	AS1	50000000	9.93418747046929	3.37319232480681e+19	0.21272236	0.21128754	0.28672574	0.28926436
+SID	SNAME	library_size	lib_cell	cell_per_ml	A_ratio	T_ratio	C_ratio	G_ratio .   
+1	AS2	50000000	8.56742513314301	3.23275242169008e+19	0.22371768	0.22220922	0.27649788	0.27757522 .   
+2	AS1	50000000	9.93418747046929	3.37319232480681e+19	0.21272236	0.21128754	0.28672574	0.28926436 .   
 
-cat dna_cell_info.txt 
-SID	SNAME	library_size	lib_cell	cell_per_ml	A_ratio	T_ratio	C_ratio	G_ratio
-1	AS2	50000000	8.56742513314301	3.23275242169008e+19	0.22371768	0.22220922	0.27649788	0.27757522
-2	AS1	50000000	9.93418747046929	3.37319232480681e+19	0.21272236	0.21128754	0.28672574	0.28926436
+cat dna_cell_info.txt .     
+SID	SNAME	library_size	lib_cell	cell_per_ml	A_ratio	T_ratio	C_ratio	G_ratio .   
+1	AS2	50000000	8.56742513314301	3.23275242169008e+19	0.22371768	0.22220922	0.27649788	0.27757522 .   
+2	AS1	50000000	9.93418747046929	3.37319232480681e+19	0.21272236	0.21128754	0.28672574	0.28926436 .   
 
-These numbers could be used to normalize your genes/species to per cell/volume level in the end! 
+These numbers could be used to normalize your genes/species to per cell/volume level in the end!       
 
-Copyright: LG209, Environmental biotechnology laborotory HKU.
+Copyright: LG209, Environmental biotechnology laborotory HKU.    
