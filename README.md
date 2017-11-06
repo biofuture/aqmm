@@ -27,19 +27,20 @@ mRNA ratio is the ratio of mRNA to total RNA, which is a emperical value for dif
 
 Notice: Before using this algorithm, users need to get the above meta data information as accurately as possible, although the algorithm show robusty to the variance to the extraction efficiency among different samples, users should keep all the condition as consistent as possible in order to get more accurate/reliable quantification and comparativety. 
 
-Running the aqmm just by one command
+Running the aqmm just by one command .  
 
-By typing ./aqmm -h the help information will show here 
+By typing ./aqmm -h the help information will show here .    
     
 	perl ./aqmm -a <Input_metagenome_dir> -b <Input_metatranscriptome_dir> -m <Experimental_meta_data> -n <num_threads> -o <ouput_dir>
 	Author Jiang Xiao-Tao 2017-08
 	Email  biofuture.jiang@gmail.com
 
-where: 
--a <Input_metagenome_dir> including all the fq files of your metagenomic samples after quality filtering 
--b <Input_metatranscriptome_dir> including all the paralell metatranscriptomic fq files with metagenomic samples after remvoing the rRNA with tools like SortMeRNA. 
--m meta_data.txt including all the experimental extraction information and the extraction efficiency information of your sample type
--o <ouput_dir> will include all the output results for the quantification, including the esimated cell numbers of metagenomic data of each sample and the estimated sequenced cell numbers your metatranscriptomic data included. With the quantification results obtained, the abundance of gene/species could be futher normalized to per cell/volume/gram etc. al.
+where:    
+
+       -a <Input_metagenome_dir> including all the fq files of your metagenomic samples after quality filtering 
+       -b <Input_metatranscriptome_dir> including all the paralell metatranscriptomic fq files with metagenomic samples after . remvoing the rRNA with tools like SortMeRNA. 
+       -m meta_data.txt including all the experimental extraction information and the extraction efficiency information of your sample type
+       -o <ouput_dir> will include all the output results for the quantification, including the esimated cell numbers of metagenomic data of each sample and the estimated sequenced cell numbers your metatranscriptomic data included. With the quantification results obtained, the abundance of gene/species could be futher normalized to per cell/volume/gram etc. al.   
 
 Example to run
 
