@@ -1,4 +1,5 @@
-#aqmm .  
+# aqmm
+
 Document for AQMM (Absolute quantification of metagenome and metatranscriptome) .  
 
 The AQMM was developed to perform absolute quantification of mulitipile metagenome and it's paralell metatranscriptome. In order to use this algorithm, the experiment should be designed with both metagenome and metatranscriptome data. From initial stage, the molecular experimental data should be recorded to help on estimating the overall DNA or RNA of a unit (ml/gram) of sample. The AQMM was demonstrated to obtain better results of differential experssion genes identification in comparative metatranscriptomic studies.       
