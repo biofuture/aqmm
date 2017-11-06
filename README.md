@@ -11,19 +11,19 @@ git clone https://github.com/biofuture/aqmm.git .  
 prepare the meta_data.txt which contains all the molecular experimental data .   
 
 The meta_data.txt should .       
-SID     SNAME   DNA_weight      DNA_volume      DNA_extr_eff    RNA_weight      RNA_volume      RNA_extr_eff    mRNA_ratio . 
+SID     SNAME   DNA_weight      DNA_volume      DNA_extr_eff    RNA_weight      RNA_volume      RNA_extr_eff    mRNA_ratio .   
 1       AS1     24570   0.5     0.282   6135    0.5     0.075   0.03 .  
 2       AS2     27300   0.5     0.282   6355    0.5     0.075   0.03 .  
 
-Each line contains information of one sample
-SNAME is the name of the sample, which stored under the input directory
-DNA_weight is the weight of DNA for the extraction (ng)
-DNA_volume is the total volume of sample used for the DNA extraction
-DNA_extr_eff is the extracting efficiency for the sample, which is an emperical value for a DNA extraction KIT for a sample
-RNA_weight is the weight of RNA for the extraction
-RNA_volume is the total volume of sample used for the RNA extraction
-RNA_extr_eff is the extracting efficiency for the sample, which is an emperical value for a RNA extraction KIT for a type of sample
-mRNA ratio is the ratio of mRNA to total RNA, which is a emperical value for different environment
+Each line contains information of one sample .     
+SNAME is the name of the sample, which stored under the input directory .   
+DNA_weight is the weight of DNA for the extraction (ng) .   
+DNA_volume is the total volume of sample used for the DNA extraction .   
+DNA_extr_eff is the extracting efficiency for the sample, which is an emperical value for a DNA extraction KIT for a sample .   
+RNA_weight is the weight of RNA for the extraction .   
+RNA_volume is the total volume of sample used for the RNA extraction .   
+RNA_extr_eff is the extracting efficiency for the sample, which is an emperical value for a RNA extraction KIT for a type of sample .   
+mRNA ratio is the ratio of mRNA to total RNA, which is a emperical value for different environment          
 
 Notice: Before using this algorithm, users need to get the above meta data information as accurately as possible, although the algorithm show robusty to the variance to the extraction efficiency among different samples, users should keep all the condition as consistent as possible in order to get more accurate/reliable quantification and comparativety. 
 
