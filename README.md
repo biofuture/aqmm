@@ -12,9 +12,11 @@ prepare the meta_data.txt which contains all the molecular experimental data . �
 
 The meta_data.txt should .
 
-SID     SNAME   DNA_weight      DNA_volume      DNA_extr_eff    RNA_weight      RNA_volume      RNA_extr_eff    mRNA_ratio .   
-1       AS1     24570   0.5     0.282   6135    0.5     0.075   0.03 .  
-2       AS2     27300   0.5     0.282   6355    0.5     0.075   0.03 .  
+SID	|  SNAME  | DNA_weight    |  DNA_volume   |   DNA_extr_eff  |  RNA_weight  |    RNA_volume   |   RNA_extr_eff |   mRNA_ratio .
+------------------------------------------------------------------------------------------------------------------------
+1       | AS1     | 24570         | 0.5           | 0.282           | 6135         |     0.5         |    0.075       |  0.03 .
+------------------------------------------------------------------------------------------------------------------------
+2       | AS2     |27300          |0.5            | 0.282           |  6355        |    0.5          |    0.075       |  0.03 .  
 
 Each line contains information of one sample .
 
