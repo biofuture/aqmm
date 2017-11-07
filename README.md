@@ -12,11 +12,10 @@ prepare the meta_data.txt which contains all the molecular experimental data . �
 
 The meta_data.txt should .
 
-SID	|  SNAME  | DNA_weight    |  DNA_volume   |   DNA_extr_eff  |  RNA_weight  |    RNA_volume   |   RNA_extr_eff |   mRNA_ratio .
-------------------------------------------------------------------------------------------------------------------------
-1       | AS1     | 24570         | 0.5           | 0.282           | 6135         |     0.5         |    0.075       |  0.03 .
-------------------------------------------------------------------------------------------------------------------------
-2       | AS2     |27300          |0.5            | 0.282           |  6355        |    0.5          |    0.075       |  0.03 .  
+SID	|  SNAME  | DNA_weight    |  DNA_volume   |   DNA_extr_eff  |  RNA_weight  |    RNA_volume   |   RNA_extr_eff |   mRNA_ratio 
+--------|---------|---------------|---------------|-----------------|--------------|-----------------|----------------|-
+1       | AS1     | 24570         | 0.5           | 0.282           | 6135         |     0.5         |    0.075       |  0.03 
+2       | AS2     |27300          |0.5            | 0.282           |  6355        |    0.5          |    0.075       |  0.03   
 
 Each line contains information of one sample .
 
@@ -59,17 +58,18 @@ Enter the example directory and run the following command
 
 After runnning, check the results 
 
-	cat dna_cell_info.txt .    
+	cat dna_cell_info.txt .   
 
-SID	SNAME	library_size	lib_cell	cell_per_ml	A_ratio	T_ratio	C_ratio	G_ratio .   
-1	AS2	50000000	8.56742513314301	3.23275242169008e+19	0.22371768	0.22220922	0.27649788	0.27757522 .   
-2	AS1	50000000	9.93418747046929	3.37319232480681e+19	0.21272236	0.21128754	0.28672574	0.28926436 .   
+SID	| SNAME	| library_size	| lib_cell	| cell_per_ml	| A_ratio	| T_ratio	| C_ratio	| G_ratio    --------|-------|---------------|---------------|---------------|---------------|---------------|---------------|----------
+1	|AS2	|50000000	|8.56742513314301	| 3.23275242169008e+19	| 0.22371768	|0.22220922	|0.27649788	| 0.27757522   
+2	|AS1	|50000000	|9.93418747046929	| 3.37319232480681e+19	|0.21272236	|0.21128754	|0.28672574	| 0.28926436   
 
-cat dna_cell_info.txt .
+	cat dna_cell_info.txt .
 
-SID	SNAME	library_size	lib_cell	cell_per_ml	A_ratio	T_ratio	C_ratio	G_ratio .   
-1	AS2	50000000	8.56742513314301	3.23275242169008e+19	0.22371768	0.22220922	0.27649788	0.27757522 .   
-2	AS1	50000000	9.93418747046929	3.37319232480681e+19	0.21272236	0.21128754	0.28672574	0.28926436 .   
+SID	|SNAME	|library_size	|lib_cell	|cell_per_ml|	A_ratio	|T_ratio|	C_ratio	|G_ratio    
+--------|-------|---------------|---------------|-----------|-----------|-------|---------------|-------
+1	|AS2	|50000000	|8.56742513314301 |	3.23275242169008e+19|	0.22371768|	0.22220922	|0.27649788	|0.27757522    
+2	|AS1	|50000000	|9.93418747046929 |	3.37319232480681e+19|	0.21272236|	0.21128754	|0.28672574	|0.28926436    
 
 These numbers could be used to normalize your genes/species to per cell/volume level in the end!       
 
