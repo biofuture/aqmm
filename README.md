@@ -74,4 +74,19 @@ SID	|SNAME	|library_size	|lib_cell	|cell_per_ml|	A_ratio	|T_ratio|	C_ratio	|G_ra
 
 These numbers could be used to normalize your genes/species to per cell/volume level in the end!       
 
+
+###Compare with RQ methods
+
+A script was developed to process the results for both AQMM and RQ methods like RPKM/edgeR/DESeq2 to identify the differential expression genes between groups 
+
+
+###supporting for time series metatranscriptomics studies 
+
+As many metatranscriptomics studies only investiagte the activity of a system without change of the DNA part, hence this is a very important application scence. To perform absolute quantification of this condition, a optional parameters were integrated into the aqmm tool.  Users process this type of data could quantify the transcript in this way. 
+
+
+
+
+
+
 Copyright: LG209, Environmental biotechnology laborotory HKU.    
