@@ -4,11 +4,11 @@ Document for AQMM (Absolute quantification of metagenome and metatranscriptome) 
 
 The AQMM was developed to perform absolute quantification of mulitipile metagenome and it's paralell metatranscriptome. In order to use this algorithm, the experiment should be designed with both metagenome and metatranscriptome data. From initial stage, the molecular experimental data should be recorded to help on estimating the overall DNA or RNA of a unit (ml/gram) of sample. The AQMM was demonstrated to obtain better results of differential experssion genes identification in comparative metatranscriptomic studies.       
 
-clone the source code to local server .   
+## clone the source code to local server .   
 
 git clone https://github.com/biofuture/aqmm.git .   
 
-prepare the meta_data.txt which contains all the molecular experimental data .   
+## prepare the meta_data.txt which contains all the molecular experimental data .   
 
 The meta_data.txt should .
 
@@ -30,7 +30,7 @@ mRNA ratio is the ratio of mRNA to total RNA, which is a emperical value for dif
 
 Notice: Before using this algorithm, users need to get the above meta data information as accurately as possible, although the algorithm show robusty to the variance to the extraction efficiency among different samples, users should keep all the condition as consistent as possible in order to get more accurate/reliable quantification and comparativety. 
 
-Running the aqmm just by one command .  
+## Running the aqmm just by one command .  
 
 By typing ./aqmm -h the help information will show here .    
     
@@ -48,7 +48,7 @@ where:
        
        -o <ouput_dir> will include all the output results for the quantification, including the esimated cell numbers of metagenomic data of each sample and the estimated sequenced cell numbers your metatranscriptomic data included. With the quantification results obtained, the abundance of gene/species could be futher normalized to per cell/volume/gram etc. al.   
 
-Example to run
+## Example to run
 
 There is a small demo to show how to use AQMM to generate absolute quantification of your data under the example directory. 
 
@@ -75,12 +75,12 @@ SID	|SNAME	|library_size	|lib_cell	|cell_per_ml|	A_ratio	|T_ratio|	C_ratio	|G_ra
 These numbers could be used to normalize your genes/species to per cell/volume level in the end!       
 
 
-###Compare with RQ methods
+### Compare with RQ methods
 
 A script was developed to process the results for both AQMM and RQ methods like RPKM/edgeR/DESeq2 to identify the differential expression genes between groups 
 
 
-###supporting for time series metatranscriptomics studies 
+### supporting for time series metatranscriptomics studies 
 
 As many metatranscriptomics studies only investiagte the activity of a system without change of the DNA part, hence this is a very important application scence. To perform absolute quantification of this condition, a optional parameters were integrated into the aqmm tool.  Users process this type of data could quantify the transcript in this way. 
 
