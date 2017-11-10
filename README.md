@@ -77,8 +77,14 @@ These numbers could be used to normalize your genes/species to per cell/volume l
 
 ### Compare with RQ methods
 
-A script was developed to process the results for both AQMM and RQ methods like RPKM/edgeR/DESeq2 to identify the differential expression genes between groups 
+A script was developed to process the results for both AQMM and RQ methods like RPKM/edgeR/DESeq2 to identify the differential expression genes between groups
 
+	perl normalization_RNA_sequencing.pl <RNA_Depth> <gene_length> <RNA_Table> <Oprefix>
+
+where 
+	RNA_Depth	is the meta_data file contains the 
+	gene_length	
+	RNA_Table	
 
 ### supporting for time series metatranscriptomics studies 
 
