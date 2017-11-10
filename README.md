@@ -89,6 +89,30 @@ where
 	Oprefix	        is the output prefix for all the normalization methods for the RNA_Table 
 
 
+I will show the our foaming vs nonfoaming activated sludge as the example
+
+cat RNA_DEPTH.txt
+
+	NAME	lib.size	Group
+	RNA-201.gene.txt	148949591	Foaming
+	RNA-202.gene.txt	181507132	Foaming
+	RNA-203.gene.txt	135988557	Foaming
+	RNA-205.gene.txt	152020602	NonFoaming
+	RNA-206.gene.txt	155510444	Foaming
+	RNA-207.gene.txt	161566079	NonFoaming
+	RNA-208.gene.txt	148860009	NonFoaming
+	RNA-209.gene.txt	132982810	Foaming
+	RNA-210.gene.txt	137007411	NonFoaming
+
+head -10 len_gene.txt
+
+	contig_1_1	1071
+	contig_1_2	552
+	contig_1_3	1284
+	contig_1_4	279
+	contig_1_5	699
+	contig_1_6	867
+	
 
 ### supporting for time series metatranscriptomics studies 
 
