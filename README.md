@@ -114,12 +114,9 @@ head -10 len_gene.txt
 	contig_1_6	867
 	
 
-### supporting for time series metatranscriptomics studies 
+### Supporting for time series metatranscriptomics studies 
 
-As many metatranscriptomics studies only investiagte the activity of a system without change of the DNA part, hence this is a very important application scence. To perform absolute quantification of this condition, a optional parameters were integrated into the aqmm tool.  Users process this type of data could quantify the transcript in this way.  Inputing the relative abundance informaition, per species quantification could be achieved.
-
-
-
+As many metatranscriptomics studies only investiagte the activity of a system without change of the DNA part, hence this is a very important application scence. To perform absolute quantification of this condition, a optional parameters were integrated into the aqmm tool.  Users process this type of data could quantify the transcript in this way.  Inputing the relative abundance informaition, per species quantification could be achieved. 
 
 
 
