@@ -118,7 +118,4 @@ head -10 len_gene.txt
 
 As many metatranscriptomics studies only investiagte the activity of a system without change of the DNA part, hence this is a very important application scence. To perform absolute quantification of this condition, a optional parameters were integrated into the aqmm tool.  Users process this type of data could quantify the transcript in this way.  Inputing the relative abundance informaition, per species quantification could be achieved. 
 
-
-<script type="text/javascript" id="clustrmaps" src="//cdn.clustrmaps.com/map_v2.js?d=_IyKIWHrkezd3cze0yrWw8NZNn7gh7OKO6P-msc_qdE"></script>
-
 Copyright: LG209, Environmental biotechnology laborotory HKU.    
