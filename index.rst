@@ -35,7 +35,7 @@ mRNA ratio is the ratio of mRNA to total RNA, which is a emperical value for dif
 Notice: Before using this algorithm, users need to get the above meta data information as accurately as possible, although the algorithm show robusty to the variance to the extraction efficiency among different samples, users should keep all the condition as consistent as possible in order to get more accurate/reliable quantification and comparativety. 
 
 Running the aqmm just by one command .  
-======================================
+--------------------------------------
 
 By typing ./aqmm -h the help information will show here .    
     
@@ -54,7 +54,7 @@ where:
        -o <ouput_dir> will include all the output results for the quantification, including the esimated cell numbers of metagenomic data of each sample and the estimated sequenced cell numbers your metatranscriptomic data included. With the quantification results obtained, the abundance of gene/species could be futher normalized to per cell/volume/gram etc. al.   
 
 Example to run
-==============
+--------------
 
 There is a small demo to show how to use AQMM to generate absolute quantification of your data under the example directory. 
 
@@ -82,7 +82,7 @@ These numbers could be used to normalize your genes/species to per cell/volume l
 
 
 Compare with RQ methods
-=======================
+-----------------------
 
 A script was developed to process the results for both AQMM and RQ methods like RPKM/TPM/edgeR to identify the differential expression genes between groups
 
@@ -122,7 +122,7 @@ head -10 len_gene.txt
 	
 
 Supporting for time series metatranscriptomics studies 
-======================================================
+------------------------------------------------------
 
 As many metatranscriptomics studies only investiagte the activity of a system without change of the DNA part, hence this is a very important application scence. To perform absolute quantification of this condition, a optional parameters were integrated into the aqmm tool.  Users process this type of data could quantify the transcript in this way.  Inputing the relative abundance informaition, per species quantification could be achieved. 
 
