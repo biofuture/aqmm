@@ -93,7 +93,7 @@ These numbers could be used to normalize your genes/species to per cell/volume l
 Compare with RQ methods
 -----------------------
 
-A script was developed to process the results for both AQMM and RQ methods like RPKM/TPM/edgeR to identify the differential gene expression between groups
+A script was developed to process the results for both AQMM and RQ methods like RPKM/TPM/edgeR to identify the differential gene expression between groups::
 
 	perl compare_aqmm_rq.pl 
 	Author: Xiao-Tao JIANG
@@ -101,7 +101,6 @@ A script was developed to process the results for both AQMM and RQ methods like 
 	Modified : 19-01-2019
 	Email: biofuture.jiang@gmail.com
 	perl compare_aqmm_rq.pl -a <meta_data_rna.txt> -b <unique_gene_set> -c <rna_reads_count.matrix> -o <Oprefix> -h
-
 	-a input meta data file for all the metatranscriptomic data <required>
 	-b the gene set fasta file <required>
 	-c matrix of reads number mapped in RNA samples for each gene  <required>
