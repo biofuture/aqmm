@@ -96,46 +96,32 @@ Compare with RQ methods
 A script was developed to process the results for both AQMM and RQ methods like RPKM/TPM/edgeR to identify the differential gene expression between groups
 
 	perl compare_aqmm_rq.pl 
-
 	Author: Xiao-Tao JIANG
-        Date: 
-        Modified : 19-01-2019
-        Email: biofuture.jiang@gmail.com
-         "perl compare_aqmm_rq.pl -a <meta_data_rna.txt> -b <unique_gene_set> -c <rna_reads_count.matrix> -o <Oprefix> -h 
-" 
-        
-        -a input meta data file for all the metatranscriptomic data <required>
-        -b the gene set fasta file <required>
-        -c matrix of reads number mapped in RNA samples for each gene  <required>
-        -d matrix of transcript per copy gene  run AQMM required.
-        -o output prefix, all output result files name are prefix with this string <required>  
-        -l the length of reads default strategies PE 150 sequencing, default 150 bps 
-        -s this option is to select the normalization methods, RPKM, TPM, EDGER, AQMM, ALL. default AQMM 
-        -h print this help information 
+	Date:
+	Modified : 19-01-2019
+	Email: biofuture.jiang@gmail.com
+	perl compare_aqmm_rq.pl -a <meta_data_rna.txt> -b <unique_gene_set> -c <rna_reads_count.matrix> -o <Oprefix> -h
+
+	-a input meta data file for all the metatranscriptomic data <required>
+	-b the gene set fasta file <required>
+	-c matrix of reads number mapped in RNA samples for each gene  <required>
+	-d matrix of transcript per copy gene  run AQMM required.
+	-o output prefix, all output result files name are prefix with this string <required>  
+	-l the length of reads default strategies PE 150 sequencing, default 150 bps
+	-s this option is to select the normalization methods, RPKM, TPM, EDGER, AQMM, ALL. default AQMM \
+	-h print this help information 
 
 I will show the our foaming vs nonfoaming activated sludge as the example
 
-cat RNA_DEPTH.txt::
+cat meta_data_rna.txt::
 
-	NAME	lib.size	Group
-	RNA-201.gene.txt	148949591	Foaming
-	RNA-202.gene.txt	181507132	Foaming
-	RNA-203.gene.txt	135988557	Foaming
-	RNA-205.gene.txt	152020602	NonFoaming
-	RNA-206.gene.txt	155510444	Foaming
-	RNA-207.gene.txt	161566079	NonFoaming
-	RNA-208.gene.txt	148860009	NonFoaming
-	RNA-209.gene.txt	132982810	Foaming
-	RNA-210.gene.txt	137007411	NonFoaming
-
-head -10 len_gene.txt::
-
-	contig_1_1	1071
-	contig_1_2	552
-	contig_1_3	1284
-	contig_1_4	279
-	contig_1_5	699
-	contig_1_6	867
+	NAME    lib.size       	Sequencedcells  Cellsperml      Group
+	RNA-202 181507132       98935.72        61089831992.13  Foaming
+	RNA-203 135988557       99744.01        69785833441.83  Foaming
+	RNA-206 155510444       78448.79        76617498876.03  Foaming
+	RNA-207 161566079       160343.35       65215396780.99  NonFoaming
+	RNA-208 148860009       189776.19       77332880002.52  NonFoaming
+	RNA-210 137007411       154924.95       90936071156.11  NonFoaming
 	
 Supporting for time series metatranscriptomics studies  in the near future
 ------------------------------------------------------
