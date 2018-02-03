@@ -82,7 +82,7 @@ A script was developed to process the results for both AQMM and RQ methods like 
 	perl compare_aqmm_rq.pl 
 	Author: Xiao-Tao JIANG
 	Date:
-	Modified : 19-01-2019
+	Modified : 19-01-2018
 	Email: biofuture.jiang@gmail.com
 	perl compare_aqmm_rq.pl -a <meta_data_rna.txt> -b <unique_gene_set> -c <rna_reads_count.matrix> -o <Oprefix> -h
 	-a input meta data file for all the metatranscriptomic data <required>
