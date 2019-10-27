@@ -112,7 +112,7 @@ cat meta_data_rna.txt::
 As many metatranscriptomics studies only investiagte the activity of a system without change of the DNA part, hence this is a very important application scence. To perform absolute quantification of this condition, a optional parameters were integrated into the aqmm tool.  Users process this type of data could quantify the transcript in this way.  Inputing the relative abundance informaition, per species quantification could be achieved. 
 
 
-Copyright 2017-2019 <Developed by: Xiao-Tao Jiang>
+Copyright 2017-2019 Developed by: Xiao-Tao Jiang
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
