@@ -1,0 +1,7 @@
+0. AQMM begain: Sun Nov  5 11:22:14 2017
+1. Parse the experimental meta data	Sun Nov  5 11:22:14 2017
+2. AroC and atcg state for DNA data begin, this step is slow, be patient	Sun Nov  5 11:22:14 2017
+	AroC finished, DNA cell numbers have been estimated	Sun Nov  5 11:23:00 2017
+3. DNA Cell Estimation have been finished
+4. START to process RNA libraries to get the lib size and ATCG ratio	Sun Nov  5 11:23:00 2017
+5. Finished!Sun Nov  5 11:23:03 2017

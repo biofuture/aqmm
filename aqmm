@@ -136,7 +136,7 @@ print  "\tAroC finished, DNA cell numbers have been estimated\t", $dat , "\n";
 ##output the first result of per volume cell numbers 
 my $dnaoutcell = "$odir/dna_cell_info.txt";
 die "DNA output$!\n" unless open(DNAOUT, ">$dnaoutcell");
-print DNAOUT "SID\tSNAME\tlibrary_size\tlib_cell\tcell_per_ml\tA_ratio\tT_ratio\tC_ratio\tG_ratio\n";
+print DNAOUT "SID\tSNAME\tlibrary_size\tcell_perml\tlib_cell\tA_ratio\tT_ratio\tC_ratio\tG_ratio\n";
 my $sid = 1;
 for my $sn (sort {$sname{$b} <=> $sname{$a}} keys %sname){
 	
@@ -144,7 +144,8 @@ for my $sn (sort {$sname{$b} <=> $sname{$a}} keys %sname){
 	my $seqtotalweight = ( ($dnacomp{$sn}{"A"} *  313.2 + $dnacomp{$sn}{"T"} * 304.2 + $dnacomp{$sn}{"C"} * 289.18 + $dnacomp{$sn}{"G"} * 329.21) * $dnadepthlib{$sn}) / $molindex;
 	my $seqratio = $seqtotalweight / $dnatotalweight; ## this is the ratio of DNA sequenced 
         my $celperml = $dnalibcells{$sn} / $seqratio;  ## the total number of cells per ml sample 
-	print DNAOUT "$sid\t$sn\t$dnadepthlib{$sn}\t$dnalibcells{$sn}\t$celperml\t",$dnacomp{$sn}{"A"},"\t",$dnacomp{$sn}{"T"}, "\t",$dnacomp{$sn}{"C"}, "\t", $dnacomp{$sn}{"G"},"\n";
+	my $dnascalingfactor = $dnalibcells{$sn} / $celperml; ##As the DNA scaling factor
+	print DNAOUT "$sid\t$sn\t$dnadepthlib{$sn}\t$celperml\t$dnalibcells{$sn}\t$dnascalingfactor\t",$dnacomp{$sn}{"A"},"\t",$dnacomp{$sn}{"T"}, "\t",$dnacomp{$sn}{"C"}, "\t", $dnacomp{$sn}{"G"},"\n";
 
 	##store per ml cells for RNA data 
 	$perunitcells{$sn} = $celperml;
@@ -161,7 +162,7 @@ print LOG "4. START to process RNA libraries to get the lib size and ATCG ratio\
 print  "4. START to process RNA libraries to get the lib size and ATCG ratio\t", $dat , "\n";
 my $rnaoutcell = "$odir/rna_cell_info.txt";
 die "RNA output$!\n" unless open(RNAOUT, ">$rnaoutcell");
-print RNAOUT "SID\tSNAME\tlibrary_size\tcell_per_ml_FromDNA\tSequenced_Cells\tA_ratio\tT_ratio\tC_ratio\tG_ratio\n";
+print RNAOUT "SID\tSNAME\tlibrary_size\tcell_per_ml_FromDNA\tSequenced_Cells\tRNA_Scalingfactor\tA_ratio\tT_ratio\tC_ratio\tG_ratio\n";
 $sid = 1;
 for my $sn (sort {$sname{$b} <=> $sname{$a}} keys %sname){
 	my $fq1 = "$opt_b/$sn\_rna_1.fq";  ##RNA fq1
@@ -177,8 +178,9 @@ for my $sn (sort {$sname{$b} <=> $sname{$a}} keys %sname){
 	my $seqratio = $seqweight / $rnaperml;
 
         my $seqcell = $seqratio * $perunitcells{$sn};
+	my $rnascalingfactor = $seqcell/$perunitcells{$sn};
 	
-	print RNAOUT "$sid\t$sn\t$libsize\t$perunitcells{$sn}\t$seqcell\t$ar\t$tr\t$cr\t$gr\n";
+	print RNAOUT "$sid\t$sn\t$libsize\t$perunitcells{$sn}\t$seqcell\t$rnascalingfactor\t$ar\t$tr\t$cr\t$gr\n";
 	
 	$sid ++;
 }
