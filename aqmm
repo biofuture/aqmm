@@ -29,6 +29,13 @@ my $usage =<<USG;
 	perl $0 -a <Input_metagenome_dir> -b <Input_metatranscriptome_dir> -m <Experimental_meta_data> -n <num_threads> -o <ouput_dir>
 	Author Jiang Xiao-Tao
 	Email  biofuture.jiang\@gmail.com
+
+        -a <Input_metagenome_dir> including all the fq files of your metagenomic samples after quality filtering
+	-b <Input_metatranscriptome_dir> including all the paralell metatranscriptomic fq files with metagenomic samples after . remvoing the rRNA with tools like SortMeRNA.
+	-m meta_data.txt including all the experimental extraction information and the extraction efficiency information of your sample type
+        -o <ouput_dir> will include all the output results for the quantification, including the esimated cell numbers of metagenomic data of each sample and the estimated sequenced cell numbers your metatranscriptomic data included. With the quantification results obtained, the abundance of gene/species could be futher normalized to per cell/volume/gram etc. al.
+
+
 USG
 
 if($opt_h || ! $opt_a){
