@@ -94,5 +94,19 @@ A script was developed to process the results for both AQMM and RQ methods like 
 	-s this option is to select the normalization methods, RPKM, TPM, EDGER, AQMM, ALL. default AQMM \
 	-h print this help information 
 
+<<<<<<< HEAD
 
 Copyright: LG209, Environmental biotechnology laborotory HKU.    
+=======
+I will show the our foaming vs nonfoaming activated sludge as the example
+
+cat meta_data_rna.txt::
+
+	NAME    lib.size       	Sequencedcells  Cellsperml      Group
+	RNA-202 181507132       98935.72        61089831992.13  Foaming
+	RNA-203 135988557       99744.01        69785833441.83  Foaming
+	RNA-206 155510444       78448.79        76617498876.03  Foaming
+	RNA-207 161566079       160343.35       65215396780.99  NonFoaming
+	RNA-208 148860009       189776.19       77332880002.52  NonFoaming
+	RNA-210 137007411       154924.95       90936071156.11  NonFoaming
+>>>>>>> 962634b4b9c82f395f1419f6845298ade6e43621
