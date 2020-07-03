@@ -105,9 +105,3 @@ cat meta_data_rna.txt::
 	RNA-207 161566079       160343.35       65215396780.99  NonFoaming
 	RNA-208 148860009       189776.19       77332880002.52  NonFoaming
 	RNA-210 137007411       154924.95       90936071156.11  NonFoaming
-	
-
-### Supporting for time series metatranscriptomics studies 
-
-As many metatranscriptomics studies only investiagte the activity of a system without change of the DNA part, hence this is a very important application scence. To perform absolute quantification of this condition, a optional parameters were integrated into the aqmm tool.  Users process this type of data could quantify the transcript in this way.  Inputing the relative abundance informaition, per species quantification could be achieved. 
-
