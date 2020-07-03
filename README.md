@@ -94,5 +94,3 @@ A script was developed to process the results for both AQMM and RQ methods like 
 	-s this option is to select the normalization methods, RPKM, TPM, EDGER, AQMM, ALL. default AQMM \
 	-h print this help information 
 
-
-Copyright: LG209, Environmental biotechnology laborotory HKU.    
