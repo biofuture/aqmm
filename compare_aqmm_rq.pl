@@ -1,8 +1,3 @@
-
-#!/usr/bin/env perl
-
-use strict;
-
 #This program is to normalize integrated metagenome and metatranscriptome (IMM) generated DNA table and RNA expression mother table to get differential expressed genes (DEGs) in control and experimental groups. 
 #This script integrate differnt methods to perform normalizaton including RPKM, FPKM, TPM, TMM and also negative bionormal distribution based normalization methods such as DESeq2 and edgeR.   
 ##Before running these methods the R package DESeq2 and edgeR should be installed on your unix/linux platform 
@@ -10,7 +5,10 @@ use strict;
 ##normalize RNA script with DNA samples gene relative abundacne (DNA abundance were normalizaed with the gene coverage against averagely coverage of universal signle copy marker genes in each sample, so that the abundance are comparable to each other), as different Groups of samples should have many species with high different number of cells, the relative abundance of gene in DNA samples are divided to remove this factor, in order to get a comparable quantification among groups, DNA samples are fistly normalize to the coverage of USCMGs.
 ##Genes in one contigs should have the same DNA abundance in one sample, so we use the aveage abundance of one contigs to all the genes in that contig, we using the RPKM to divide the gene relative abundance in paralelly DNA sample
 
-##Parse input  parameters 
+##Parse input parameters 
+#!/usr/bin/perl -w
+use strict;
+
 ##Prelimilary requirements for this script to run correctly
 use Getopt::Std;
 use File::Basename;
@@ -27,7 +25,7 @@ our ($opt_h, $opt_a, $opt_b, $opt_c, $opt_d, $opt_o, $opt_l, $opt_h, $opt_s) = "
 my  $usage = <<USE;
         Author: Xiao-Tao JIANG
         Date: 
-        Modified : 19-01-2019
+        Modified : 19-01-2019/2020-07-02
         Email: biofuture.jiang\@gmail.com
 	 "perl $0 -a <meta_data_rna.txt> -b <unique_gene_set> -c <rna_reads_count.matrix> -o <Oprefix> -h \n" 
         
@@ -37,7 +35,7 @@ my  $usage = <<USE;
 	-d matrix of transcript per copy gene  run AQMM required.
 	-o output prefix, all output result files name are prefix with this string <required>  
 	-l the length of reads default strategies PE 150 sequencing, default 150 bps 
-	-s this option is to select the normalization methods, RPKM, TPM, EDGER, AQMM, ALL. default AQMM 
+	-s this option is to select the normalization methods, RPKM, TPM, DESEQ2, EDGER, AQMM, ALL. default AQMM 
 	-h print this help information 
 USE
 
@@ -508,6 +506,7 @@ for(i in 1:n){
 	}
 }
 
+dgevector[2,] <- qvalue(dgevector[,])
 write.table(file="$odgefile", dgevector,sep="\\t")
 
 RSP
