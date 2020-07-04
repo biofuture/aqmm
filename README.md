@@ -2,7 +2,7 @@
 
 Document for AQMM (Absolute quantification of metagenome and metatranscriptome) .  
 
-The AQMM was developed to perform absolute quantification of mulitipile metagenome and it's paralell metatranscriptome. In order to use this algorithm, the experiment should be designed with both metagenome and metatranscriptome data. From initial stage, the molecular experimental data should be recorded to help on estimating the overall DNA or RNA of a unit (ml/gram) of sample. The AQMM was demonstrated to obtain better results of differential experssion genes identification in comparative metatranscriptomic studies.       
+The AQMM was developed to perform absolute quantification of mulitipile metagenome and it's paralell metatranscriptome. In order to use this algorithm, the experiment should be designed with both metagenome and metatranscriptome data. From initial stage, the molecular experimental data should be recorded to help on estimating the overall DNA or RNA of a unit (ml/gram) of sample. The AQMM enable an absolute quantificaton of genes, hence to mitigate the influence of composition effect in relative quantification methods.        
 
 ## clone the source code to local server .   
 
@@ -30,7 +30,7 @@ mRNA ratio is the ratio of mRNA to total RNA, which is a emperical value for dif
 
 Notice: Before using this algorithm, users need to get the above meta data information as accurately as possible, although the algorithm show robusty to the variance to the extraction efficiency among different samples, users should keep all the condition as consistent as possible in order to get more accurate/reliable quantification and comparativety. 
 
-## Running the aqmm just by one command .  
+## Running the aqmm just by one command from sequence file
 
 By typing ./aqmm -h the help information will show here .    
     
