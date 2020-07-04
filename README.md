@@ -96,7 +96,7 @@ A script was developed to process the results for both AQMM and RQ methods like 
 
 ### Generate Transcript per copy gene matrix
 
-After mapping DNA and RNA to the gene set, the DNA and RNA read count matrixs is obtained. For a general analysis, this gene read cont matrix can be futher normalized by gene length, library size to get quantifications such as RPKM, TPM, TMM. Then statistical analysis can be down on these matrix to identify the diffential abundant genes. For the AQMM package, we have proposed a quantification TPCG, which can show the activity of each copy of gene. To generate this matrix, the DNA and RNA matrix need to be normalized to Per cell level. The number of sequenced cells are obtained by aqmm script.
+After mapping DNA and RNA to the gene set, the DNA and RNA read count matrixs are obtained. For a general analysis, this gene read cont matrix can be futher normalized by gene length, library size etc,al to get quantifications such as RPKM, TPM, TMM. Then statistical analysis can be down on these matrix to identify the diffential abundant genes. For the AQMM package, we have proposed a quantification TPCG, which can show the activity of each copy of gene, this is not the copy of transcipts, becasue in a microbial system,the gene may have many copiesthe present of big number of  transcripts for one gene does not neccessarity mean this gene is very active. To generate this matrix, the DNA and RNA matrix need to be normalized to Per cell level. The number of sequenced cells are obtained by aqmm script.
 
 
 	perl TPCG_matrix.pl <DNA_PerCell> <RNA_PerCell> <OUT_TPCG> 
