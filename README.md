@@ -10,7 +10,7 @@ git clone https://github.com/biofuture/aqmm.git   
 
 ## prepare the meta_data.txt which contains all the molecular experimental data    
 
-The meta_data.txt should .
+The meta_data.txt should (items should be seperate by tab "\t") .
 
 SID	| SNAME   | DNA_weight    | DNA_volume   | DNA_extr_eff  | RNA_weight  | RNA_volume   | RNA_extr_eff | mRNA_ratio 
 --------|---------|---------------|--------------|---------------|-------------|--------------|--------------|------------
