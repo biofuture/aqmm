@@ -4,15 +4,15 @@ Document for AQMM (Absolute quantification of metagenome and metatranscriptome) 
 
 The AQMM was developed to perform absolute quantification of mulitipile metagenome and it's paralell metatranscriptome. In order to use this algorithm, the experiment should be designed with both metagenome and metatranscriptome data. From initial stage, the molecular experimental data should be recorded to help on estimating the overall DNA or RNA of a unit (ml/gram) of sample. The AQMM enable an absolute quantificaton of genes, hence to mitigate the influence of composition effect in relative quantification methods.        
 
-## clone the source code to local server .   
+## clone the source code to local server    
 
 git clone https://github.com/biofuture/aqmm.git .   
 
-## prepare the meta_data.txt which contains all the molecular experimental data .   
+## prepare the meta_data.txt which contains all the molecular experimental data    
 
 The meta_data.txt should .
 
-SID	|  SNAME  | DNA_weight    |  DNA_volume   |   DNA_extr_eff  |  RNA_weight  |    RNA_volume   |   RNA_extr_eff |   mRNA_ratio 
+SID	|  SNAME  | DNA_weight    | DNA_volume   | DNA_extr_eff  |  RNA_weight  |    RNA_volume   |   RNA_extr_eff |   mRNA_ratio 
 --------|---------|---------------|---------------|-----------------|--------------|-----------------|----------------|-
 1       | AS1     | 24570         | 0.5           | 0.282           | 6135         |     0.5         |    0.075       |  0.03 
 2       | AS2     |27300          |0.5            | 0.282           |  6355        |    0.5          |    0.075       |  0.03   
