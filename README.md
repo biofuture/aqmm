@@ -12,10 +12,10 @@ git clone https://github.com/biofuture/aqmm.git .  
 
 The meta_data.txt should .
 
-SID	|  SNAME  | DNA_weight    | DNA_volume   | DNA_extr_eff  |  RNA_weight  |    RNA_volume   |   RNA_extr_eff |   mRNA_ratio 
+SID	|  SNAME  | DNA_weight    | DNA_volume   |DNA_extr_eff  | RNA_weight  | RNA_volume   |RNA_extr_eff | mRNA_ratio 
 --------|---------|---------------|---------------|-----------------|--------------|-----------------|----------------|-
-1       | AS1     | 24570         | 0.5           | 0.282           | 6135         |     0.5         |    0.075       |  0.03 
-2       | AS2     |27300          |0.5            | 0.282           |  6355        |    0.5          |    0.075       |  0.03   
+1       | AS1     | 24570         |0.5           | 0.282           |6135         |     0.5         |   0.075       |  0.03 
+2       | AS2     |27300          |0.5            | 0.282           |  6355        |    0.5          |   0.075       |  0.03   
 
 Each line contains information of one sample .
 
@@ -32,7 +32,7 @@ Notice: Before using this algorithm, users need to get the above meta data infor
 
 ## Running the aqmm just by one command from sequence file
 
-By typing ./aqmm -h the help information will show here .    
+By typing ./aqmm -h the help information will show here (Perl version 5 (5.1) need to run the program) .    
     
 	perl ./aqmm -a <Input_metagenome_dir> -b <Input_metatranscriptome_dir> -m <Experimental_meta_data> -n <num_threads> -o <ouput_dir>
 	Author Jiang Xiao-Tao 2020-07
